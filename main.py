@@ -3,6 +3,7 @@ import logging
 import sys
 
 from typing_speed import TypingSpeed
+from click_speed import ClickSpeed
 from number_memory import NumberClass
 from verbal_memory import VerbalClass
 
@@ -12,9 +13,10 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO,
 
 def main():
     tests = {
+        "Click Speed": ClickSpeed,
+        "Typing Speed": TypingSpeed,
         "Number Memory": NumberClass,
         "Verbal Memory": VerbalClass,
-        "Typing Speed": TypingSpeed,
     }
 
     questions = [
