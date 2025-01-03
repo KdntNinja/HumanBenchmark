@@ -6,19 +6,17 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-class BaseMemory:
-    def __init__(self, url: str, headless: bool = True) -> None:
+class BaseClass:
+    def __init__(self, url: str) -> None:
         self.logger: logging.Logger = logging.getLogger(__name__)
-        self.driver: WebDriver = self.setup_driver(headless)
+        self.driver: WebDriver = self.setup_driver()
         self.wait: WebDriverWait = WebDriverWait(self.driver, 20)
         self.url: str = url
 
-    def setup_driver(self, headless: bool) -> WebDriver:
+    def setup_driver(self) -> WebDriver:
         try:
             self.logger.info("Setting up WebDriver")
             options: webdriver.FirefoxOptions = webdriver.FirefoxOptions()
-            if headless:
-                options.add_argument("--headless")
             driver = webdriver.Firefox(options=options)
             self.logger.info("WebDriver setup complete")
             return driver

@@ -1,11 +1,11 @@
 from selenium.webdriver.common.by import By
 
-from base import BaseMemory
+from base import BaseClass
 
 
-class NumberMemory(BaseMemory):
-    def __init__(self, headless: bool = True) -> None:
-        super().__init__("https://humanbenchmark.com/tests/number-memory", headless)
+class NumberClass(BaseClass):
+    def __init__(self) -> None:
+        super().__init__("https://humanbenchmark.com/tests/number-memory")
         self.number: str = ""
         self.StartButton: str = "Start"
         self.SubmitButton: str = "Submit"

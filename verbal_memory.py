@@ -1,10 +1,10 @@
 from selenium.webdriver.common.by import By
-from base import BaseMemory
+from base import BaseClass
 
 
-class VerbalMemory(BaseMemory):
-    def __init__(self, headless: bool = True) -> None:
-        super().__init__("https://humanbenchmark.com/tests/verbal-memory", headless)
+class VerbalClass(BaseClass):
+    def __init__(self) -> None:
+        super().__init__("https://humanbenchmark.com/tests/verbal-memory")
         self.word: str = ""
         self.seen_words: set = set()
         self.StartButton: str = "Start"
