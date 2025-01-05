@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 from base import BaseClass
 
@@ -28,7 +29,7 @@ class NumberMemory(BaseClass):
     def read_number(self) -> None:
         try:
             self.logger.info("Reading number from the page")
-            number_div = self.wait.until(
+            number_div = WebDriverWait(self.driver, 999999).until(
                 lambda d: d.find_element(By.CSS_SELECTOR, "div.big-number")
             )
             self.number = number_div.text.strip()
@@ -41,7 +42,7 @@ class NumberMemory(BaseClass):
             self.logger.info(f"Inputting number: {self.number}")
             input_box = None
             while not input_box:
-                input_box = self.wait.until(
+                input_box = WebDriverWait(self.driver, 999999).until(
                     lambda d: d.find_element(
                         By.CSS_SELECTOR, 'input[type="text"][pattern="[0-9]*"]'
                     ),
