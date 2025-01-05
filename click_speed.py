@@ -6,8 +6,8 @@ from base import BaseClass
 
 
 class ClickSpeed(BaseClass):
-    def __init__(self) -> None:
-        super().__init__("https://humanbenchmark.com/tests/reactiontime")
+    def __init__(self, headless: bool = False) -> None:
+        super().__init__("https://humanbenchmark.com/tests/reactiontime", headless)
         self.BoxDiv: str = "div.css-42wpoy.e19owgy79"
 
     def click_start(self) -> None:
@@ -20,10 +20,8 @@ class ClickSpeed(BaseClass):
         box_div = self.wait.until(
             lambda d: d.find_element(By.CSS_SELECTOR, self.BoxDiv)
         )
-        self.logger.info(
-            "Waiting for the box to turn green or text to change to 'Click!'"
-        )
-        WebDriverWait(self.driver, 60).until(
+        self.logger.info("Waiting for text to change to 'Click!'")
+        WebDriverWait(self.driver, 10).until(
             EC.text_to_be_present_in_element(
                 (By.CSS_SELECTOR, f"{self.BoxDiv} div div h1 div"), "Click!"
             )
@@ -31,7 +29,15 @@ class ClickSpeed(BaseClass):
         box_div.click()
         self.logger.info("Clicked inside the box")
 
-    def run(self) -> None:
+        self.click_to_keep_going()
+
+    def click_to_keep_going(self):
+        h2_element = self.wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//h2[text()='Click to keep going']"))
+        )
+        h2_element.click()
+
+    def perform_test(self) -> None:
         try:
             self.logger.info("Starting click speed test")
             while True:

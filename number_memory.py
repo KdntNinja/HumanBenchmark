@@ -3,9 +3,9 @@ from selenium.webdriver.common.by import By
 from base import BaseClass
 
 
-class NumberClass(BaseClass):
-    def __init__(self) -> None:
-        super().__init__("https://humanbenchmark.com/tests/number-memory")
+class NumberMemory(BaseClass):
+    def __init__(self, headless: bool = False) -> None:
+        super().__init__("https://humanbenchmark.com/tests/number-memory", headless)
         self.number: str = ""
         self.StartButton: str = "Start"
         self.SubmitButton: str = "Submit"
@@ -14,7 +14,7 @@ class NumberClass(BaseClass):
     def click_start(self) -> None:
         self.click_button(self.StartButton)
 
-    def run(self) -> None:
+    def perform_test(self) -> None:
         while True:
             self.read_number()
             self.input_number()

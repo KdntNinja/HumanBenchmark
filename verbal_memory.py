@@ -2,9 +2,9 @@ from selenium.webdriver.common.by import By
 from base import BaseClass
 
 
-class VerbalClass(BaseClass):
-    def __init__(self) -> None:
-        super().__init__("https://humanbenchmark.com/tests/verbal-memory")
+class VerbalMemory(BaseClass):
+    def __init__(self, headless: bool = False) -> None:
+        super().__init__("https://humanbenchmark.com/tests/verbal-memory", headless)
         self.word: str = ""
         self.seen_words: set = set()
         self.StartButton: str = "Start"
@@ -14,7 +14,7 @@ class VerbalClass(BaseClass):
     def click_start(self) -> None:
         self.click_button(self.StartButton)
 
-    def run(self) -> None:
+    def perform_test(self) -> None:
         while True:
             self.read_word()
             if self.word in self.seen_words:
