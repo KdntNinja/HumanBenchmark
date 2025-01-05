@@ -6,6 +6,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxDriver
 from selenium.webdriver.chrome.webdriver import WebDriver as ChromeDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from dotenv import load_dotenv
+from typing import Union
 import os
 
 
@@ -13,7 +14,7 @@ class BaseClass:
     def __init__(self, url: str, headless: bool = False) -> None:
         load_dotenv()
         self.logger: logging.Logger = logging.getLogger(__name__)
-        self.driver: FirefoxDriver or ChromeDriver = self.setup_driver(headless)
+        self.driver: Union[FirefoxDriver, ChromeDriver] = self.setup_driver(headless)
         self.wait: WebDriverWait = WebDriverWait(self.driver, 20)
         self.url: str = url
 
@@ -38,7 +39,7 @@ class BaseClass:
                 return driver
             except Exception as e:
                 self.logger.error(f"Failed to set up Chromium WebDriver: {e}")
-                raise
+                raise RuntimeError("No suitable WebDriver found. Please ensure that either Firefox or Chrome WebDriver is installed and accessible.")
 
     def teardown_driver(self) -> None:
         self.logger.info("Tearing down WebDriver")
