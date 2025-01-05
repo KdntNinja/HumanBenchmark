@@ -13,14 +13,14 @@ tar -xzf /tmp/geckodriver.tar.gz -C /tmp
 
 # Move geckodriver to /usr/local/bin
 echo "Installing geckodriver..."
-sudo mv /tmp/geckodriver /usr/local/bin/
+sudo mv /tmp/geckodriver /usr/local/bin/geckodriver
 
 # Set executable permissions
 sudo chmod +x /usr/local/bin/geckodriver
 
 # Clean up
 echo "Cleaning up..."
-rm /tmp/geckodriver.tar.gz
+sudo rm /tmp/geckodriver.tar.gz
 
 # Verify installation
 echo "Verifying geckodriver installation..."
