@@ -39,16 +39,16 @@ class NumberMemory(BaseClass):
     def input_number(self) -> None:
         try:
             self.logger.info(f"Inputting number: {self.number}")
-            input_box = self.wait.until(
-                lambda d: d.find_element(
-                    By.CSS_SELECTOR, 'input[type="text"][pattern="[0-9]*"]'
+            input_box = None
+            while not input_box:
+                input_box = self.wait.until(
+                    lambda d: d.find_element(
+                        By.CSS_SELECTOR, 'input[type="text"][pattern="[0-9]*"]'
+                    ),
+                    message="Input box not found",
                 )
-            )
-            if input_box:
-                input_box.send_keys(self.number)
-                self.logger.info(f"Number inputted: {self.number}")
-            else:
-                self.logger.error("Input box not found")
+            input_box.send_keys(self.number)
+            self.logger.info(f"Number inputted: {self.number}")
         except Exception as e:
             self.logger.error(f"Failed to input number: {e}")
 

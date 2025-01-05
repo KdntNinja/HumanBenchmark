@@ -6,6 +6,7 @@ from typing_speed import TypingSpeed
 from reaction_speed import ReactionSpeed
 from number_memory import NumberMemory
 from verbal_memory import VerbalMemory
+from chimp_test import ChimpTest
 
 logging.basicConfig(
     stream=sys.stdout,
@@ -16,6 +17,7 @@ logging.basicConfig(
 
 def main():
     tests = {
+        "Chimp Test": ChimpTest,
         "Reaction Speed": ReactionSpeed,
         "Typing Speed": TypingSpeed,
         "Number Memory": NumberMemory,

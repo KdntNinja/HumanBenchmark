@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 from base import BaseClass
 
@@ -13,7 +14,7 @@ class TypingSpeed(BaseClass):
 
     def perform_test(self) -> None:
         self.logger.info("Starting typing test")
-        letters_div = self.wait.until(
+        letters_div = WebDriverWait(self.driver, 60).until(
             lambda d: d.find_element(By.CSS_SELECTOR, self.LettersDiv)
         )
         letters = letters_div.find_elements(By.TAG_NAME, "span")
