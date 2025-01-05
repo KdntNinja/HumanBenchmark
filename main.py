@@ -7,8 +7,11 @@ from click_speed import ClickSpeed
 from number_memory import NumberClass
 from verbal_memory import VerbalClass
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    stream=sys.stdout,
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
 
 
 def main():
