@@ -21,10 +21,9 @@ This project automates tests on the [humanbenchmark.com](https://humanbenchmark.
    pip install -r requirements.txt
    ```
 
-4. Create a `.env` file in the root directory and add your HumanBenchmark username and password:
+4. Copy the `.env.example` file to `.env` and update the values:
    ```sh
-   USERNAME=your_username
-   PASSWORD=your_password
+   cp .env.example .env
    ```
 
 ## Usage
