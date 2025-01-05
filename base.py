@@ -47,7 +47,7 @@ class BaseClass:
         try:
             self.driver.get(self.url)
             self.click_start()
-            self.perform_test()
+            self.run()
         except Exception as e:
             self.logger.error(f"An error occurred: {e}")
         finally:
@@ -57,5 +57,5 @@ class BaseClass:
     def click_start(self) -> None:
         raise NotImplementedError("Subclasses should implement this method")
 
-    def perform_test(self) -> None:
+    def run(self) -> None:
         raise NotImplementedError("Subclasses should implement this method")

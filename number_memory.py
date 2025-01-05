@@ -14,7 +14,7 @@ class NumberClass(BaseClass):
     def click_start(self) -> None:
         self.click_button(self.StartButton)
 
-    def perform_test(self) -> None:
+    def run(self) -> None:
         while True:
             self.read_number()
             self.input_number()
