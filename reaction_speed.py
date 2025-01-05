@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from base import BaseClass
 
 
-class ClickSpeed(BaseClass):
+class ReactionSpeed(BaseClass):
     def __init__(self, headless: bool = False) -> None:
         super().__init__("https://humanbenchmark.com/tests/reactiontime", headless)
         self.BoxDiv: str = "div.css-42wpoy.e19owgy79"
@@ -29,8 +29,6 @@ class ClickSpeed(BaseClass):
         box_div.click()
         self.logger.info("Clicked inside the box")
 
-        self.click_to_keep_going()
-
     def click_to_keep_going(self):
         h2_element = self.wait.until(
             EC.element_to_be_clickable((By.XPATH, "//h2[text()='Click to keep going']"))
@@ -42,5 +40,6 @@ class ClickSpeed(BaseClass):
             self.logger.info("Starting click speed test")
             while True:
                 self.click_box()
+                self.click_to_keep_going()
         except Exception as e:
             self.logger.error(f"An error occurred during the click speed test: {e}")

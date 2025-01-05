@@ -39,7 +39,9 @@ class BaseClass:
                 return driver
             except Exception as e:
                 self.logger.error(f"Failed to set up Chromium WebDriver: {e}")
-                raise RuntimeError("No suitable WebDriver found. Please ensure that either Firefox or Chrome WebDriver is installed and accessible.")
+                raise RuntimeError(
+                    "No suitable WebDriver found. Please ensure that either Firefox or Chrome WebDriver is installed and accessible."
+                )
 
     def teardown_driver(self) -> None:
         self.logger.info("Tearing down WebDriver")

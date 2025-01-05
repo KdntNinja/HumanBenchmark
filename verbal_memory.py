@@ -15,13 +15,16 @@ class VerbalMemory(BaseClass):
         self.click_button(self.StartButton)
 
     def perform_test(self) -> None:
-        while True:
-            self.read_word()
-            if self.word in self.seen_words:
-                self.click_seen()
-            else:
-                self.seen_words.add(self.word)
-                self.click_new()
+        try:
+            while True:
+                self.read_word()
+                if self.word in self.seen_words:
+                    self.click_seen()
+                else:
+                    self.seen_words.add(self.word)
+                    self.click_new()
+        except Exception as e:
+            self.logger.error(f"Error during test: {e}")
 
     def read_word(self) -> None:
         try:

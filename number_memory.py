@@ -16,10 +16,14 @@ class NumberMemory(BaseClass):
 
     def perform_test(self) -> None:
         while True:
-            self.read_number()
-            self.input_number()
-            self.click_submit()
-            self.click_next()
+            try:
+                self.read_number()
+                self.input_number()
+                self.click_submit()
+                self.click_next()
+            except Exception as e:
+                self.logger.error(f"Failed to perform test: {e}")
+                break
 
     def read_number(self) -> None:
         try:
