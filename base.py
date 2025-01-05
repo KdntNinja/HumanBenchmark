@@ -2,7 +2,8 @@ import logging
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxDriver
+from selenium.webdriver.chrome.webdriver import WebDriver as ChromeDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from dotenv import load_dotenv
 import os
@@ -12,22 +13,32 @@ class BaseClass:
     def __init__(self, url: str, headless: bool = False) -> None:
         load_dotenv()
         self.logger: logging.Logger = logging.getLogger(__name__)
-        self.driver: WebDriver = self.setup_driver(headless)
+        self.driver: FirefoxDriver or ChromeDriver = self.setup_driver(headless)
         self.wait: WebDriverWait = WebDriverWait(self.driver, 20)
         self.url: str = url
 
-    def setup_driver(self, headless: bool) -> WebDriver:
+    def setup_driver(self, headless: bool) -> FirefoxDriver or ChromeDriver:
         try:
-            self.logger.info("Setting up WebDriver")
+            self.logger.info("Setting up Firefox WebDriver")
             options: webdriver.FirefoxOptions = webdriver.FirefoxOptions()
             if headless:
                 options.add_argument("--headless")
             driver = webdriver.Firefox(options=options)
-            self.logger.info("WebDriver setup complete")
+            self.logger.info("Firefox WebDriver setup complete")
             return driver
         except Exception as e:
-            self.logger.error(f"Failed to set up WebDriver: {e}")
-            raise
+            self.logger.warning(f"Failed to set up Firefox WebDriver: {e}")
+            self.logger.info("Falling back to Chromium WebDriver")
+            try:
+                options: webdriver.ChromeOptions = webdriver.ChromeOptions()
+                if headless:
+                    options.add_argument("--headless")
+                driver = webdriver.Chrome(options=options)
+                self.logger.info("Chromium WebDriver setup complete")
+                return driver
+            except Exception as e:
+                self.logger.error(f"Failed to set up Chromium WebDriver: {e}")
+                raise
 
     def teardown_driver(self) -> None:
         self.logger.info("Tearing down WebDriver")
@@ -35,6 +46,7 @@ class BaseClass:
             self.driver.quit()
         self.logger.info("WebDriver teardown complete")
         os.system("pkill geckodriver")
+        os.system("pkill chromedriver")
 
     def login(self) -> None:
         try:
@@ -104,13 +116,9 @@ class BaseClass:
     def run(self) -> None:
         self.logger.info("Starting run method")
         try:
-            # Navigate to the main page and login
             self.driver.get("https://humanbenchmark.com")
             self.login()
-
-            # Navigate to the specific test URL
             self.driver.get(self.url)
-
             self.click_start()
             self.perform_test()
         except Exception as e:
@@ -124,4 +132,4 @@ class BaseClass:
         raise NotImplementedError("Subclasses should implement this method")
 
     def perform_test(self) -> None:
-        raise NotImplementedError("Subclasses should implement this method")
+        raise NotImplementedError("Subclasses should implement this method")  #
