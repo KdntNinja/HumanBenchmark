@@ -1,26 +1,17 @@
-import logging
-
 import inquirer
+import logging
+import sys
 
-from number_memory import NumberMemory
-from reaction_speed import ReactionSpeed
 from typing_speed import TypingSpeed
+from reaction_speed import ReactionSpeed
+from number_memory import NumberMemory
 from verbal_memory import VerbalMemory
 
-# --- Logging Setup ---
-log_formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+logging.basicConfig(
+    stream=sys.stdout,
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
-console_handler = logging.StreamHandler()
-file_handler = logging.FileHandler("workflow_log.txt", mode="w")
-
-console_handler.setFormatter(log_formatter)
-file_handler.setFormatter(log_formatter)
-
-logger = logging.getLogger("HumanBenchmark")
-logger.setLevel(logging.DEBUG)
-logger.addHandler(console_handler)
-logger.addHandler(file_handler)
 
 
 def main():
